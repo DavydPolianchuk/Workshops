@@ -1,10 +1,12 @@
 name: Playwright
-run-name: Testing on branch ${{ github.base_ref }}
+run-name: Testing on branch ${{ github.head_ref }}
 on:
   pull_request:
 jobs:
   playwright:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,3 +26,9 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+      - name: Deploy report
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: playwright-report
