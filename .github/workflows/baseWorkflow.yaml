@@ -1,9 +1,9 @@
 name: Base workflow
 run-name: ${{ github.actor }} is testing
-on: 
+on:
   push:
     branches:
-    - main
+      - main
 jobs:
   testJob:
     runs-on: ubuntu-latest
