@@ -1,5 +1,5 @@
 name: Playwright
-run-name: Testing on branch ${{ github.ref_name }}
+run-name: Testing on branch ${{ github.base_ref }}
 on:
   pull_request:
 jobs:
@@ -8,15 +8,16 @@ jobs:
     steps: 
       - name: Checkout
         uses: actions/checkout@v4
-  setup-node:
-    runs-on: ubuntu-latest
-    steps:
       - name: Install node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - run: |
-          ls -a 
-          pwd
-          
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npx playwright tests
+
+
         
