@@ -1,0 +1,22 @@
+name: Playwright
+run-name: Testing on branch ${{ github.ref_name }}
+on:
+  pull_request:
+jobs:
+  playwright:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v4
+  setup-node:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: |
+          ls -a 
+          pwd
+          
+        
